@@ -1,0 +1,10 @@
+**/**
+
+node_modules/**
+.git/**
+
+# Un-ignore your valid Apps Script files
+!**/*.js
+!**/*.ts
+!**/*.html
+!appsscript.json

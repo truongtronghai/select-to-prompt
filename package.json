@@ -1,0 +1,25 @@
+{
+  "name": "undertheshadepromptauto",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Code.js",
+  "scripts": {
+    "test": "node --test test/",
+    "lint": "eslint .",
+    "format": "prettier --write \"**/*.js\" \"**/*.json\" \"**/*.mjs\"",
+    "format:check": "prettier --check \"**/*.js\" \"**/*.json\" \"**/*.mjs\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/google-apps-script": "^2.0.15",
+    "eslint": "^10.14.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.7",
+    "globals": "^17.14.0",
+    "prettier": "^3.9.10"
+  }
+}

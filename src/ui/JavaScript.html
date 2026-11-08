@@ -1,0 +1,81 @@
+<script>
+  const form = document.getElementById('entryForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const banner = document.getElementById('statusBanner');
+  const topicSelect = document.getElementById('topic');
+  // use JSON.parse to safely parse the JSON data from the script tag
+  const topicData = JSON.parse(document.getElementById('topicData').textContent);
+  const fieldSelects = Array.from(form.querySelectorAll('select[data-field]'));
+
+  /**
+   * Rebuilds every replacement-field dropdown from the selected topic.
+   */
+  function renderFields(topicKey) {
+    const values = topicData[topicKey] || {};
+
+    fieldSelects.forEach((select) => {
+      const options = values[select.dataset.field] || [];
+
+      select.replaceChildren(...options.map((value) => new Option(value, value)));
+
+      if (options.length === 0) {
+        select.append(new Option('No options for this topic', '', true, true));
+        select.disabled = true;
+      } else {
+        select.disabled = false;
+      }
+    });
+  }
+
+  // Topic change
+  topicSelect.addEventListener('change', () => {
+    renderFields(topicSelect.value);
+  });
+
+  renderFields(topicSelect.value);
+
+  // Form submit handling
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Saving...';
+    banner.className = 'banner';
+    banner.textContent = '';
+
+    const fields = {};
+
+    fieldSelects.forEach((select) => {
+      fields[select.dataset.field] = select.disabled ? '' : select.value;
+    });
+
+    const payload = {
+      topic: topicSelect.value.trim(),
+      fields,
+    };
+
+    google.script.run
+      .withSuccessHandler((res) => {
+        const saved = !!(res && res.success);
+
+        banner.className = saved ? 'banner success' : 'banner warning';
+        banner.textContent = (res && res.message) || (saved ? 'Saved.' : 'Nothing was added.');
+
+        // Keep the form as-is when nothing was saved, so the user can tweak it.
+        if (saved) {
+          form.reset();
+          renderFields(topicSelect.value);
+        }
+
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send to Sheet';
+      })
+      .withFailureHandler((err) => {
+        banner.className = 'banner error';
+        banner.textContent = err.message || 'Submission failed.';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send to Sheet';
+      })
+      .submitDataToSheet(payload);
+  });
+</script>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <base target="_top">
+  <?!= include('ui/Stylesheet'); ?>
+</head>
+
+<body>
+  <form id="entryForm">
+    <div class="field">
+      <label for="topic">Topic</label>
+      <select id="topic">
+        <? Object.keys(dataTopicMap).forEach((key) => { ?>
+        <option value="<?= key ?>">
+          <?= dataTopicMap[key] ?>
+        </option>
+        <? }); ?>
+      </select>
+    </div>
+
+    <? videoFields.forEach((field) => { ?>
+    <div class="field">
+      <label for="<?= field.key ?>"><?= field.label ?></label>
+      <select id="<?= field.key ?>" name="<?= field.key ?>" data-field="<?= field.key ?>"></select>
+    </div>
+    <? }); ?>
+
+    <button type="submit" id="submitBtn">Send to Sheet</button>
+  </form>
+
+  <div id="statusBanner" class="banner"></div>
+
+  <script type="application/json" id="topicData">
+    <?!= JSON.stringify(dataTopicReplacementMap).replace(/</g, '\\u003c') ?>
+  </script>
+
+  <?!= include('ui/JavaScript'); ?>
+</body>
+
+</html>
