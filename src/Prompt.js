@@ -10,7 +10,8 @@ const PROMPT_TEMPLATE = [
   '1-3s: [ACTION_1_3S].',
   '3-7s: [ACTION_3_7S].',
   '7-10s: [ACTION_7_10S], looping seamlessly back to the start.',
-  'Negative prompt: text, captions, subtitles, logos, watermarks, extra [MAIN_OBJECT], distorted [MAIN_OBJECT], morphing, object swapping, scene cuts, jump cuts, slow static opening, empty wide shot in the first 3 seconds, blur, soft focus, motion blur, out of focus, low resolution, grain, flicker, oversaturated colours, cartoon style, people, faces, talking, loud music, rushed movements, fast cuts. .',
+  'Negative prompt: text, captions, subtitles, logos, watermarks, extra [MAIN_OBJECT], distorted [MAIN_OBJECT], morphing, object swapping, scene cuts, jump cuts, slow static opening, empty wide shot in the first 3 seconds, blur, soft focus, motion blur, out of focus, low resolution, grain, flicker, oversaturated colours, cartoon style, people, faces, talking, loud music, rushed movements, fast cuts.',
+  'Music style: calm, chill, relax.',
 ].join(' ');
 
 /**
